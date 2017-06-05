@@ -1,5 +1,13 @@
 package flippa.toyrobot.entities;
 
+/**
+ * A class that represents the table.  The details
+ * that are to be used for a table will be the
+ * length and the width.
+ * 
+ * @author JP
+ *
+ */
 public class Table {
 	private int length;
 	private int width;

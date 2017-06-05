@@ -10,6 +10,13 @@ import flippa.toyrobot.enums.Action;
 import flippa.toyrobot.enums.Direction;
 import flippa.toyrobot.exception.ToyRobotException;
 
+/**
+ * A singleton class that parses a string and tries to interpret it
+ * as a command that the toy robot could understand.
+ * 
+ * @author JP
+ *
+ */
 public class CommandParser {
 	private static String SPACE = " ";
 	private static String COMMA = ",";
@@ -17,10 +24,18 @@ public class CommandParser {
 	
 	private static CommandParser instance;
 	
+	/**
+	 * Private constructor for the singleton class.
+	 */
 	private CommandParser() {
 		
 	}
 	
+	/**
+	 * Returns a static instance of the CommandParser.
+	 * 
+	 * @return
+	 */
 	public static CommandParser getInstance() {
 		if (instance == null) {
 			instance = new CommandParser();
@@ -28,6 +43,14 @@ public class CommandParser {
 		return instance;
 	}
 	
+	/**
+	 * Attempts to transform a command string into a Command that the 
+	 * Toy Robot would understand.
+	 * 
+	 * @param commandLine
+	 * @return
+	 * @throws ToyRobotException
+	 */
 	public Command parseCommand(String commandLine) throws ToyRobotException {
 		
 		StringTokenizer st = new StringTokenizer(commandLine, SPACE);
@@ -58,6 +81,13 @@ public class CommandParser {
 		return command;
 	}
 	
+	/**
+	 * Attempts to interpret a string and convert it as a Location object.
+	 * 
+	 * @param locationLine
+	 * @return
+	 * @throws ToyRobotException
+	 */
 	private Location parseLocation(String locationLine) throws ToyRobotException {
 		StringTokenizer st = new StringTokenizer(locationLine, COMMA);
 		List<String> data = new ArrayList<String>();

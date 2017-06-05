@@ -11,18 +11,34 @@ import flippa.toyrobot.entities.ToyRobot;
 import flippa.toyrobot.exception.ToyRobotException;
 import flippa.toyrobot.parser.CommandParser;
 
+/**
+ * Main program for executing the Toy Robot.
+ * 
+ * @author JP
+ *
+ */
 public class Program {
 	
 	private CommandParser parser = CommandParser.getInstance();
 	private ToyRobot robot = new ToyRobot(this.createTable());
 	private boolean isFirstCommandReady = false;
 
+	/**
+	 * This is the entry point of the program.  The execution will depend on the arguments.  If it has
+	 * zero arguments, it will assume that the user will enter commands.  If it has an argument, it will interpret
+	 * the first argument as a filename.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Program p = new Program();
 		
 		p.execute(args);
 	}
 	
+	/**
+	 * Executes the toy robot commands, either via command line or via a file.
+	 * @param args
+	 */
 	public void execute(String[] args) {
 		System.out.println("Welcome to the Toy Robot program.\n");
 		if (args.length == 0) {
@@ -34,6 +50,9 @@ public class Program {
 		System.out.println("Exiting the program.");
 	}
 	
+	/**
+	 * Commands the toy robot via an input from the user.
+	 */
 	private void executeViaCommand() {
 		Scanner sc = new Scanner(System.in);
 		String input = this.readLine(sc);
@@ -45,11 +64,11 @@ public class Program {
 		sc.close();
 	}
 	
-	private String readLine(Scanner sc) {
-		System.out.print("Enter a command (or Q<Enter> to exit): ");
-		return sc.nextLine();
-	}
-	
+	/**
+	 * Gives commands to the toy robot via command lines from the file.
+	 * 
+	 * @param filename
+	 */
 	private void executeViaFile(String filename) {
 		try (Stream<String> stream = Files.lines(Paths.get(filename))) {
 	        stream.forEach(e -> { 
@@ -63,6 +82,23 @@ public class Program {
 		}
 	}
 	
+	/**
+	 * Reads a line from the console input and returns the string.
+	 * 
+	 * @param sc
+	 * @return
+	 */
+	private String readLine(Scanner sc) {
+		System.out.print("Enter a command (or Q<Enter> to exit): ");
+		return sc.nextLine();
+	}
+	
+	/**
+	 * Invokes the toy robot command by translating a string input into a command.
+	 * 
+	 * @param input
+	 * @param willPrintNextLine
+	 */
 	private void invokeRobotCommand(String input, boolean willPrintNextLine) {
 		try {
 			Command command = parser.parseCommand(input);
@@ -83,14 +119,30 @@ public class Program {
 		}
 	}
 	
+	/**
+	 * Invokes the toy robot command by translating a string input into a command.
+	 * 
+	 * @param input
+	 */
 	private void invokeRobotCommand(String input) {
 		invokeRobotCommand(input, true);
 	}
 	
+	/**
+	 * Determines if the user input is a quit command.
+	 * 
+	 * @param input
+	 * @return
+	 */
 	private boolean isQuiting(String input) {
 		return input.trim().toUpperCase().equals("Q");
 	}
 	
+	/**
+	 * Creates a 5x5 table for usage by the robot.
+	 * 
+	 * @return
+	 */
 	private Table createTable() {
 		return new Table(5,5);
 	}
