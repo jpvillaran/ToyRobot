@@ -13,6 +13,8 @@ e.g.
 java Program
 ```
 
+A user may exit the program by typing 'Q' on the prompt. 
+
 ### 2. Via a text file
 Execute the program on any console by going to the bin directory after compiling the classes.
 The first argument of the Program class should be a path pointing to the file containing the series of commands.
